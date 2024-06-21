@@ -7,18 +7,6 @@ import useEvent from "../hooks/useEvent";
 const BoardView = () => {
     const [board,setBoard] = useState(new Board());
 
-    useEvent('keydown', ()=>{alert("hello")})
-
-    const cells = board.cells.map((row,rowIndex)=> {
-        return (
-            <div key={rowIndex}>
-                {row.map((col,colIndex)=>{
-                    return (<Cell key={rowIndex * board.size + colIndex}/>)
-                })}
-            </div>
-        )
-    });
-
     const handleKeyDown = (event) => {
         if (board.hasWon()){
             return;
@@ -31,9 +19,21 @@ const BoardView = () => {
         }
     }
 
-    const tiles = board.tiles.filter((tile)=>tile.value !== 0).map((tile,index)=>{
-        return <Tile tile={tile} key={index}/>
-    })
+    useEvent('keydown', handleKeyDown)
+
+    const cells = board.cells.map((row, rowIndex) => {
+        return (
+            <div key={rowIndex}>
+                { row.map((col, colIndex) => {
+                    return <Cell key={rowIndex*board.size + colIndex} />
+                })}
+            </div>
+        )
+    });
+
+    const tiles = board.tiles.filter((tile) => tile.value !== 0).map((tile, tileIndex) => {
+        return (<Tile tile={tile} key={tileIndex} />)
+    });
 
     return ( <div>
         <div className="board">
