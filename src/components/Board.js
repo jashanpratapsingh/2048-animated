@@ -114,7 +114,7 @@ export default function BoardView() {
                             </div>
                             <div className='copyright'>
                                 <p>
-                                <small>&copy; Copyright {year}</small>, Cecilia Benitez
+                                <small>&copy; Copyright {year}</small>, Jashan Pratap Singh
                                 </p>
                                 <div className='resetButton' onClick={closeModal}>Cancel</div>
                             </div>
