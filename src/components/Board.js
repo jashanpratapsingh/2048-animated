@@ -7,20 +7,6 @@ import useEvent from "../hooks/useEvent";
 const BoardView = () => {
     const [board,setBoard] = useState(new Board());
 
-    const handleKeyDown = (event) => {
-        if (board.hasWon()){
-            return;
-        }
-
-        if(event.keyCode>=37 && event.keyCode<=40) {
-            let direction = event.keyCode - 37;
-            let boardClone = Object.assign(Object.create(Object.getPrototypeOf(board)), board);
-            let newBoard = boardClone.move(direction);
-        }
-    }
-
-    useEvent('keydown', handleKeyDown)
-
     const cells = board.cells.map((row, rowIndex) => {
         return (
             <div key={rowIndex}>
@@ -34,6 +20,20 @@ const BoardView = () => {
     const tiles = board.tiles.filter((tile) => tile.value !== 0).map((tile, tileIndex) => {
         return (<Tile tile={tile} key={tileIndex} />)
     });
+    
+    const handleKeyDown = (event) => {
+        if (board.hasWon()){
+            return;
+        }
+
+        if(event.keyCode>=37 && event.keyCode<=40) {
+            let direction = event.keyCode - 37;
+            let boardClone = Object.assign(Object.create(Object.getPrototypeOf(board)), board);
+            let newBoard = boardClone.move(direction);
+        }
+    };
+
+    useEvent('keydown', handleKeyDown)
 
     return ( <div>
         <div className="board">
